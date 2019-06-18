@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const tasks = [];
+
+tasks.push("learn react");
+tasks.push("Go shopping");
+tasks.push("buy flowers");
+
+class App extends React.Component {
+  
+  constructor(props){
+    super(props);
+    this.state ={
+      value: ""
+    }
+    this.addItem = this.addItem.bind(this);
+    this.changer = this.changer.bind(this);
+  }
+  changer(e) {
+    this.setState({value: e.target.value});
+  }
+  addItem() {
+      console.log(this.state.value);
+      // this.refs.form.reset();
+   return tasks.push(this.state.value);
+      
+
+  }
+  
+  render() {
+    return (
+      
+      <div>
+        <ul>
+          {tasks.map(task => <li key={task}>{task}</li>)}
+        </ul>
+        <form onSubmit={this.addItem}>
+          <input type="text" placeholder="Task" value={this.state.value} onChange={this.changer}  />
+          <button type="submit">Add!</button>
+        </form>
+        
+      </div>
+    );
+  }
+
 }
+
 
 export default App;
